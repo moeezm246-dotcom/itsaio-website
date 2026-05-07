@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ItsAIO — All-In-One AI Marketing, Fully Automated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --beige:#F5F0E8;--beige2:#EDE6D6;--beige3:#E4DAC6;
+  --cream:#FAF7F2;--cream2:#F2EDE3;
+  --terra:#C45C2E;--terra2:#A84A22;
+  --terra-light:#F0CABF;--terra-pale:#FAF0EC;
+  --sage:#5E8A64;--sage-light:#D4E8D8;
+  --text:#1C1813;--text2:#5C4F3D;--text3:#9C8E7A;
+  --border:rgba(92,79,61,0.12);--border2:rgba(92,79,61,0.22);
+  --shadow:0 2px 24px rgba(28,24,19,0.08);
+  --shadow2:0 8px 48px rgba(28,24,19,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--beige)}
+::-webkit-scrollbar-thumb{background:var(--terra);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(250,247,242,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 52px;height:66px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--text);text-decoration:none}
+.nav-logo em{color:var(--terra);font-style:normal}
+.nav-links{display:flex;gap:30px}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--terra)}
+.nav-right{display:flex;gap:10px;align-items:center}
+.btn-login{padding:9px 18px;border:1.5px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:6px;transition:all .2s}
+.btn-login:hover{border-color:var(--terra);color:var(--terra)}
+.btn-cta-nav{padding:10px 20px;background:var(--terra);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none;border-radius:6px;transition:background .2s}
+.btn-cta-nav:hover{background:var(--terra2)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,24,19,0.5);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--cream);border-radius:16px;width:420px;max-width:94vw;overflow:hidden;box-shadow:0 24px 80px rgba(28,24,19,.25);animation:mIn .3s ease}
+@keyframes mIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.m-header{background:var(--beige);padding:26px 30px 22px;border-bottom:1px solid var(--border)}
+.m-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.m-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text)}
+.m-logo em{color:var(--terra);font-style:normal}
+.m-close{background:none;border:none;cursor:pointer;color:var(--text3);font-size:22px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:4px;transition:all .2s;line-height:1}
+.m-close:hover{background:var(--beige2);color:var(--text)}
+.m-sub{font-size:13px;color:var(--text2)}
+.m-body{padding:26px 30px 30px}
+.m-tabs{display:flex;border:1.5px solid var(--border2);border-radius:7px;overflow:hidden;margin-bottom:22px}
+.m-tab{flex:1;padding:9px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:transparent;border:none;font-family:'DM Sans',sans-serif;color:var(--text2);transition:all .2s}
+.m-tab.active{background:var(--terra);color:#fff}
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.fi{width:100%;padding:11px 13px;border:1.5px solid var(--border2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--cream);color:var(--text);outline:none;transition:border-color .2s}
+.fi:focus{border-color:var(--terra)}
+.fi::placeholder{color:var(--text3)}
+.fcheck{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.fcheck input{width:15px;height:15px;accent-color:var(--terra)}
+.fcheck label{font-size:13px;color:var(--text2)}
+.fcheck a{color:var(--terra);text-decoration:none}
+.f-btn{width:100%;padding:13px;background:var(--terra);color:#fff;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;margin-bottom:14px}
+.f-btn:hover{background:var(--terra2)}
+.f-forgot{display:block;text-align:center;font-size:13px;color:var(--terra);text-decoration:none}
+.m-feats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.m-feat{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
+.m-feat-ico{width:26px;height:26px;background:var(--terra-pale);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+#reg-form{display:none}
+
+/* HERO */
+.hero{padding:128px 52px 90px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.h-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--terra-pale);border:1px solid var(--terra-light);color:var(--terra);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:26px}
+.h-eyebrow span{width:6px;height:6px;background:var(--terra);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(196,92,46,.4)}50%{opacity:.8;box-shadow:0 0 0 6px rgba(196,92,46,0)}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,4.2vw,64px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:22px}
+.hero h1 em{color:var(--terra);font-style:normal}
+.hero h1 .ul{position:relative;display:inline-block}
+.hero h1 .ul::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:3px;background:var(--terra);border-radius:2px;opacity:.6}
+.h-sub{font-size:17px;color:var(--text2);line-height:1.7;margin-bottom:36px;font-weight:300;max-width:460px}
+.h-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn-p{display:inline-flex;align-items:center;gap:7px;padding:14px 30px;background:var(--terra);color:#fff;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 4px 18px rgba(196,92,46,.28)}
+.btn-p:hover{background:var(--terra2);box-shadow:0 6px 26px rgba(196,92,46,.38);transform:translateY(-1px)}
+.btn-s{display:inline-flex;align-items:center;gap:7px;padding:14px 22px;background:transparent;color:var(--text2);border:1.5px solid var(--border2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-s:hover{border-color:var(--terra);color:var(--terra)}
+.h-trust{display:flex;align-items:center;gap:11px;margin-top:28px}
+.h-avatars{display:flex}
+.h-av{width:30px;height:30px;border-radius:50%;background:var(--beige2);border:2px solid var(--cream);margin-left:-7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text2)}
+.h-av:first-child{margin-left:0}
+.h-trust-txt{font-size:13px;color:var(--text3)}
+
+/* Hero dash card */
+.hero-visual{position:relative}
+.dash-card{background:#fff;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow2);overflow:hidden}
+.dash-tb{background:var(--beige);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.dash-tb-logo{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--text)}
+.dash-tb-logo em{color:var(--terra);font-style:normal}
+.dash-status{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--sage)}
+.dash-status::before{content:'';width:6px;height:6px;background:var(--sage);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.dash-inner{padding:18px}
+.dash-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.dash-m{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px}
+.dash-m-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:700}
+.dash-m-val{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.dash-m-chg{font-size:10px;color:var(--sage);font-weight:600;margin-top:1px}
+.dash-ttl{font-size:10px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.dash-bars{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.dash-bar-row{display:flex;align-items:center;gap:8px}
+.dash-bar-lbl{font-size:11px;color:var(--text2);width:72px;flex-shrink:0}
+.dash-bar-track{flex:1;height:7px;background:var(--beige2);border-radius:3px;overflow:hidden}
+.dash-bar-fill{height:100%;border-radius:3px;background:var(--terra);animation:bGrow 1.4s ease both}
+@keyframes bGrow{from{width:0%}to{width:var(--w)}}
+.dash-bar-pct{font-size:10px;color:var(--text3);width:28px;text-align:right}
+.dash-feed{display:flex;flex-direction:column;gap:6px}
+.dash-feed-row{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--text2);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:7px 9px}
+.dash-feed-ico{font-size:12px;flex-shrink:0}
+.dash-feed-time{margin-left:auto;color:var(--text3);font-size:10px;flex-shrink:0}
+.h-float{position:absolute;background:#fff;border:1px solid var(--border);border-radius:9px;padding:9px 13px;box-shadow:var(--shadow);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;white-space:nowrap;z-index:2}
+.h-float.f1{top:-16px;left:-20px;animation:fA 4s ease-in-out infinite;color:var(--sage)}
+.h-float.f2{bottom:36px;right:-16px;animation:fB 4s ease-in-out infinite 1.2s;color:var(--terra)}
+.h-float-dot{width:7px;height:7px;border-radius:50%}
+@keyframes fA{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes fB{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* TICKER */
+.ticker-wrap{background:var(--terra);padding:11px 0;overflow:hidden;white-space:nowrap}
+.ticker{display:inline-flex;animation:tickS 28s linear infinite}
+@keyframes tickS{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{display:inline-flex;align-items:center;gap:12px;padding:0 24px;font-size:11px;font-weight:500;color:rgba(255,255,255,.72);letter-spacing:.08em;text-transform:uppercase}
+.tick-div{color:rgba(255,255,255,.35);font-size:14px}
+
+/* SECTIONS */
+.sec{padding:88px 52px;max-width:1280px;margin:0 auto}
+.sec-bg{background:var(--beige);padding:88px 0}
+.sec-bg .sec{padding-top:0;padding-bottom:0}
+.sec-dark{background:var(--text);padding:80px 0}
+.sec-dark .sec{padding-top:0;padding-bottom:0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--terra);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px}
+.eyebrow::before{content:'';width:16px;height:2px;background:var(--terra);border-radius:1px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(30px,3vw,46px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.sec-sub{font-size:15px;color:var(--text2);line-height:1.7;font-weight:300;max-width:500px}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:72px;align-items:start;margin-top:56px}
+.how-steps{display:flex;flex-direction:column}
+.how-step{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+.how-step:first-child{border-top:1px solid var(--border)}
+.how-step.active,.how-step:hover{border-left-color:var(--terra);padding-left:12px}
+.how-step.active .how-step-n,.how-step:hover .how-step-n{color:var(--terra)}
+.how-step.active .how-step-t{color:var(--terra)}
+.how-step-n{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.1em;min-width:22px;padding-top:2px;transition:color .2s}
+.how-step-t{font-size:15px;font-weight:600;margin-bottom:5px;color:var(--text);transition:color .2s}
+.how-step-d{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* AIO Agent widget */
+.agent-box{background:#fff;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow2);overflow:hidden;position:sticky;top:80px}
+.agent-hdr{background:var(--beige);padding:15px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--border)}
+.agent-av{width:34px;height:34px;background:var(--terra);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;font-family:'Playfair Display',serif;flex-shrink:0}
+.agent-nm{font-size:13px;font-weight:700}
+.agent-st{font-size:11px;color:var(--sage);font-weight:600;display:flex;align-items:center;gap:4px}
+.agent-st::before{content:'';width:5px;height:5px;background:var(--sage);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.agent-body{padding:14px 18px;min-height:320px}
+.a-tasks{display:flex;flex-direction:column;gap:7px}
+.a-task{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:7px;background:var(--cream);border:1px solid var(--border)}
+.a-task.curr{border-color:var(--terra-light)}
+.a-ico{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+.a-ico.done{background:var(--sage-light);color:var(--sage)}
+.a-ico.curr{background:var(--terra-pale);color:var(--terra)}
+.a-ico.pend{background:var(--beige2);color:var(--text3)}
+.a-txt{font-size:11px;color:var(--text2);line-height:1.4}
+.a-txt strong{display:block;font-weight:600;color:var(--text);font-size:12px;margin-bottom:1px}
+.agent-prog{padding:13px 18px 15px;border-top:1px solid var(--border)}
+.prog-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:7px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.prog-bar{height:5px;background:var(--beige2);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--terra),#E8896A);border-radius:3px;width:68%;animation:pLoad 2s ease both}
+@keyframes pLoad{from{width:0}to{width:68%}}
+
+/* PIPELINE */
+.p-nodes{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin-top:52px;position:relative}
+.p-nodes::before{content:'';position:absolute;top:27px;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,var(--terra-light),rgba(240,202,191,.6),var(--terra-light),transparent)}
+.p-node{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:2}
+.p-circle{width:54px;height:54px;border-radius:50%;background:rgba(250,247,242,.07);border:1px solid rgba(250,247,242,.15);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:12px;transition:all .3s;cursor:pointer}
+.p-node:hover .p-circle{background:var(--terra);border-color:var(--terra);box-shadow:0 0 22px rgba(196,92,46,.3)}
+.p-name{font-size:11px;font-weight:600;color:rgba(250,247,242,.8);margin-bottom:3px}
+.p-desc{font-size:9px;color:rgba(250,247,242,.4);line-height:1.4}
+
+/* SERVICES */
+.svcs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--beige3);border-radius:14px;overflow:hidden;margin-top:56px}
+.svc-card{background:var(--cream);padding:32px 28px;transition:background .2s;cursor:pointer}
+.svc-card:hover{background:#fff}
+.svc-ico{width:48px;height:48px;background:var(--terra-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px;transition:all .25s}
+.svc-card:hover .svc-ico{background:var(--terra);transform:scale(1.05)}
+.svc-tag{font-size:9px;font-weight:700;color:var(--terra);text-transform:uppercase;letter-spacing:.14em;margin-bottom:7px}
+.svc-nm{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;margin-bottom:9px}
+.svc-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px}
+.svc-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.svc-list li{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:7px}
+.svc-list li::before{content:'';width:13px;height:13px;flex-shrink:0;background:var(--terra-pale);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg width='8' height='6' fill='none' viewBox='0 0 8 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3L3 5L7 1' stroke='%23C45C2E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+
+/* RESULTS */
+.res-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-top:56px}
+.res-card{background:var(--cream);padding:32px 24px;text-align:center;transition:background .2s}
+.res-card:hover{background:#fff}
+.res-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--terra);line-height:1;margin-bottom:7px;letter-spacing:-.02em}
+.res-lbl{font-size:14px;font-weight:600;margin-bottom:6px}
+.res-desc{font-size:12px;color:var(--text3);line-height:1.5}
+
+/* PORTAL SECTION */
+.portal-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center;margin-top:56px}
+.portal-feats{display:flex;flex-direction:column;gap:18px}
+.portal-feat{display:flex;gap:14px;align-items:flex-start}
+.portal-feat-ico{width:42px;height:42px;background:var(--terra-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.portal-feat-ttl{font-size:15px;font-weight:600;margin-bottom:3px}
+.portal-feat-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.portal-mockup{background:#fff;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow2);overflow:hidden}
+.portal-tb{background:var(--text);padding:13px 18px;display:flex;align-items:center;justify-content:space-between}
+.portal-tb-logo{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--beige)}
+.portal-tb-logo em{color:var(--terra-light);font-style:normal}
+.portal-tb-nav{display:flex;gap:16px}
+.portal-tb-nav span{font-size:10px;color:rgba(250,247,242,.45);font-weight:500;cursor:pointer}
+.portal-tb-nav span.act{color:var(--terra-light);font-weight:700}
+.portal-tb-user{width:26px;height:26px;background:var(--terra);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.portal-body{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pw{background:var(--cream);border:1px solid var(--border);border-radius:9px;padding:13px}
+.pw-lbl{font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.pw-big{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:2px}
+.pw-chg{font-size:10px;color:var(--sage);font-weight:600}
+.pw-mini-chart{height:36px;display:flex;align-items:flex-end;gap:3px;margin-top:9px}
+.pw-bar{flex:1;background:var(--terra-pale);border-radius:2px 2px 0 0}
+.pw-bar.hi{background:var(--terra)}
+.pw-full{grid-column:1/-1}
+.pw-activity{display:flex;flex-direction:column;gap:5px}
+.pw-act-item{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--text2)}
+.pw-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.price-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:36px 28px;position:relative;transition:all .3s;cursor:pointer}
+.price-card:hover,.price-card.feat{border-color:var(--terra);box-shadow:0 8px 40px rgba(196,92,46,.1)}
+.price-card.feat{background:var(--terra)}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--beige);font-size:10px;font-weight:700;padding:4px 13px;border-radius:20px;letter-spacing:.06em;white-space:nowrap}
+.price-tier{font-size:11px;font-weight:700;color:var(--terra);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+.price-card.feat .price-tier{color:rgba(255,255,255,.7)}
+.price-num{font-family:'Playfair Display',serif;font-size:50px;font-weight:700;line-height:1;letter-spacing:-.03em;margin-bottom:3px}
+.price-card.feat .price-num{color:#fff}
+.price-num sup{font-size:20px;vertical-align:super;font-weight:500;color:var(--text3)}
+.price-card.feat .price-num sup{color:rgba(255,255,255,.6)}
+.price-mo{font-size:12px;color:var(--text3);margin-bottom:18px}
+.price-card.feat .price-mo{color:rgba(255,255,255,.55)}
+.price-div{height:1px;background:var(--border);margin-bottom:18px}
+.price-card.feat .price-div{background:rgba(255,255,255,.2)}
+.price-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:22px}
+.price-card.feat .price-desc{color:rgba(255,255,255,.8)}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.price-feats li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text2)}
+.price-card.feat .price-feats li{color:rgba(255,255,255,.85)}
+.ck{color:var(--sage);flex-shrink:0;font-weight:700;font-size:11px;margin-top:1px}
+.xx{color:var(--text3);flex-shrink:0;font-size:11px;margin-top:1px}
+.price-card.feat .ck{color:rgba(255,255,255,.9)}
+.btn-price{display:block;width:100%;text-align:center;padding:13px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;border:1.5px solid var(--terra);color:var(--terra);background:transparent;transition:all .2s}
+.btn-price:hover{background:var(--terra);color:#fff}
+.btn-price-feat{display:block;width:100%;text-align:center;padding:13px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;background:#fff;color:var(--terra);border:none;transition:all .2s}
+.btn-price-feat:hover{background:var(--beige)}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.testi{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;transition:all .2s;cursor:pointer}
+.testi:hover{box-shadow:var(--shadow2);transform:translateY(-3px)}
+.testi-stars{color:var(--terra);font-size:13px;letter-spacing:3px;margin-bottom:14px}
+.testi-q{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:22px;font-style:italic;font-family:'Playfair Display',serif;font-weight:400}
+.testi-auth{display:flex;align-items:center;gap:11px}
+.testi-av{width:38px;height:38px;border-radius:50%;background:var(--beige2);border:2px solid var(--terra-pale);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--terra);font-family:'Playfair Display',serif;flex-shrink:0}
+.testi-nm{font-size:13px;font-weight:600}
+.testi-role{font-size:11px;color:var(--text3)}
+
+/* INDUSTRIES */
+.ind-wrap{background:var(--beige);padding:56px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ind-inner{max-width:1280px;margin:0 auto;padding:0 52px}
+.ind-lbl{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.14em;text-align:center;margin-bottom:24px}
+.ind-pills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.ind-pill{padding:9px 18px;border:1.5px solid var(--border2);border-radius:22px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .2s;background:#fff}
+.ind-pill:hover{border-color:var(--terra);color:var(--terra);background:var(--terra-pale)}
+
+/* CTA */
+.cta-wrap{background:var(--text);padding:96px 52px;text-align:center;position:relative;overflow:hidden}
+.cta-wrap::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:350px;background:radial-gradient(ellipse,rgba(196,92,46,.18) 0%,transparent 70%);pointer-events:none}
+.cta-wrap h2{font-family:'Playfair Display',serif;font-size:clamp(34px,3.8vw,56px);font-weight:700;color:var(--cream);line-height:1.1;letter-spacing:-.02em;margin-bottom:18px;position:relative}
+.cta-wrap h2 em{color:var(--terra-light);font-style:normal}
+.cta-wrap p{font-size:16px;color:rgba(250,247,242,.55);max-width:460px;margin:0 auto 40px;line-height:1.7;position:relative}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-cta-wh{display:inline-flex;align-items:center;gap:7px;padding:15px 32px;background:var(--beige);color:var(--text);border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-cta-wh:hover{background:#fff}
+.btn-cta-ol{display:inline-flex;align-items:center;gap:7px;padding:15px 24px;background:transparent;color:rgba(250,247,242,.65);border:1.5px solid rgba(250,247,242,.18);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-cta-ol:hover{border-color:rgba(250,247,242,.45);color:var(--cream)}
+
+/* FOOTER */
+footer{background:#120F09;padding:64px 52px 36px;border-top:1px solid rgba(250,247,242,.06)}
+.ft-inner{max-width:1280px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.ft-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--beige);text-decoration:none;display:block;margin-bottom:10px}
+.ft-logo em{color:var(--terra-light);font-style:normal}
+.ft-desc{font-size:13px;color:rgba(250,247,242,.38);line-height:1.7;margin-bottom:16px}
+.ft-contact{font-size:12px;color:rgba(250,247,242,.28)}
+.ft-col-ttl{font-size:10px;font-weight:700;color:rgba(250,247,242,.36);text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:rgba(250,247,242,.45);text-decoration:none;margin-bottom:9px;transition:color .2s}
+.ft-col a:hover{color:var(--terra-light)}
+.ft-bottom{border-top:1px solid rgba(250,247,242,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+.ft-copy{font-size:11px;color:rgba(250,247,242,.25)}
+.ft-social{display:flex;gap:20px}
+.ft-social a{font-size:12px;color:rgba(250,247,242,.3);text-decoration:none;transition:color .2s}
+.ft-social a:hover{color:var(--terra-light)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--beige);padding:13px 18px;border-radius:10px;font-size:13px;display:none;align-items:center;gap:9px;z-index:8000;box-shadow:0 8px 30px rgba(0,0,0,.22);border-left:3px solid var(--terra);animation:tIn .3s ease}
+@keyframes tIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast">
+  <span style="font-size:17px">🔔</span>
+  <div>
+    <div id="toast-title" style="font-weight:600;font-size:13px;margin-bottom:1px">New lead captured</div>
+    <div id="toast-sub" style="font-size:11px;color:rgba(250,247,242,.55)">Mike T. from Dallas — Google Ads funnel</div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box">
+    <div class="m-header">
+      <div class="m-header-row">
+        <span class="m-logo">Its<em>AIO</em> Client Portal</span>
+        <button class="m-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="m-sub">Access your live automation dashboard & AI reports</div>
+    </div>
+    <div class="m-body">
+      <div class="m-tabs">
+        <button class="m-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button class="m-tab" id="tab-reg" onclick="switchTab('register')">Get Access</button>
+      </div>
+      <div id="login-form">
+        <div class="fg"><label class="fl">Email address</label><input class="fi" type="email" placeholder="you@company.com"/></div>
+        <div class="fg"><label class="fl">Password</label><input class="fi" type="password" placeholder="••••••••"/></div>
+        <div class="fcheck"><input type="checkbox" id="rem"/><label for="rem">Remember me for 30 days</label></div>
+        <button class="f-btn" onclick="showToast('Signing in...','Redirecting to your dashboard')">Sign In to Dashboard →</button>
+        <a class="f-forgot" href="#">Forgot your password?</a>
+        <div class="m-feats">
+          <div class="m-feat"><div class="m-feat-ico">📊</div>Live dashboard</div>
+          <div class="m-feat"><div class="m-feat-ico">🤖</div>AI agent status</div>
+          <div class="m-feat"><div class="m-feat-ico">📈</div>Campaign reports</div>
+          <div class="m-feat"><div class="m-feat-ico">💬</div>Direct support</div>
+        </div>
+      </div>
+      <div id="reg-form" style="display:none">
+        <div class="fg"><label class="fl">Full name</label><input class="fi" type="text" placeholder="John Smith"/></div>
+        <div class="fg"><label class="fl">Business email</label><input class="fi" type="email" placeholder="you@company.com"/></div>
+        <div class="fg"><label class="fl">Business name</label><input class="fi" type="text" placeholder="Acme Inc."/></div>
+        <div class="fg"><label class="fl">Create password</label><input class="fi" type="password" placeholder="Minimum 8 characters"/></div>
+        <div class="fcheck"><input type="checkbox" id="terms"/><label for="terms">I agree to the <a href="#">Terms of Service</a></label></div>
+        <button class="f-btn" onclick="showToast('Account created!','Check your email to confirm your access')">Create My Account →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Its<em>AIO</em></a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how">How it works</a>
+    <a href="#portal">Client Portal</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-login" onclick="openModal('login')">Client Login</button>
+    <button class="btn-cta-nav" onclick="openModal('register')">Get Started</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div style="background:var(--cream)">
+<div class="hero">
+  <div>
+    <div class="h-eyebrow"><span></span>All-In-One AI Marketing Agency</div>
+    <h1>Your marketing,<br/><em>automated</em> by<br/>AI. <span class="ul">Always on.</span></h1>
+    <p class="h-sub">ItsAIO replaces your entire marketing team with intelligent AI systems — running ads, content, social media, and lead generation 24/7 without you lifting a finger.</p>
+    <div class="h-actions">
+      <a href="#pricing" class="btn-p">Start Free Trial →</a>
+      <a href="#how" class="btn-s">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
+        See it in action
+      </a>
+    </div>
+    <div class="h-trust">
+      <div class="h-avatars">
+        <div class="h-av">MR</div><div class="h-av">JL</div><div class="h-av">DK</div><div class="h-av">+</div>
+      </div>
+      <div class="h-trust-txt">Trusted by <strong>200+ US businesses</strong></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="h-float f1"><div class="h-float-dot" style="background:var(--sage)"></div>AI campaigns live — 3 active</div>
+    <div class="h-float f2"><div class="h-float-dot" style="background:var(--terra)"></div>+12 leads today</div>
+    <div class="dash-card">
+      <div class="dash-tb">
+        <span class="dash-tb-logo">Its<em>AIO</em> — Dashboard</span>
+        <span class="dash-status">AI Running</span>
+      </div>
+      <div class="dash-inner">
+        <div class="dash-metrics">
+          <div class="dash-m"><div class="dash-m-lbl">Leads (30d)</div><div class="dash-m-val">247</div><div class="dash-m-chg">↑ +38%</div></div>
+          <div class="dash-m"><div class="dash-m-lbl">ROAS</div><div class="dash-m-val">4.2x</div><div class="dash-m-chg">↑ +0.8x</div></div>
+          <div class="dash-m"><div class="dash-m-lbl">Content</div><div class="dash-m-val">64</div><div class="dash-m-chg">this month</div></div>
+        </div>
+        <div class="dash-ttl">Channel performance</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row"><span class="dash-bar-lbl">Google Ads</span><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:82%"></div></div><span class="dash-bar-pct">82%</span></div>
+          <div class="dash-bar-row"><span class="dash-bar-lbl">Meta Ads</span><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:68%"></div></div><span class="dash-bar-pct">68%</span></div>
+          <div class="dash-bar-row"><span class="dash-bar-lbl">Email</span><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:54%"></div></div><span class="dash-bar-pct">54%</span></div>
+          <div class="dash-bar-row"><span class="dash-bar-lbl">Social</span><div class="dash-bar-track"><div class="dash-bar-fill" style="--w:71%"></div></div><span class="dash-bar-pct">71%</span></div>
+        </div>
+        <div class="dash-ttl">AI activity feed</div>
+        <div class="dash-feed">
+          <div class="dash-feed-row"><span class="dash-feed-ico">⚡</span><span>Budget shifted to Ad Set #3 — CPL improved 22%</span><span class="dash-feed-time">2m</span></div>
+          <div class="dash-feed-row"><span class="dash-feed-ico">✍️</span><span>3 posts published to Instagram & Facebook</span><span class="dash-feed-time">14m</span></div>
+          <div class="dash-feed-row"><span class="dash-feed-ico">🎯</span><span>Lead scored 92/100 — email nurture triggered</span><span class="dash-feed-time">31m</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="tick-item">AI Ads Management <span class="tick-div">◆</span></div>
+    <div class="tick-item">Social Media Autopilot <span class="tick-div">◆</span></div>
+    <div class="tick-item">AI Lead Generation <span class="tick-div">◆</span></div>
+    <div class="tick-item">Email Marketing AI <span class="tick-div">◆</span></div>
+    <div class="tick-item">AI Content Creation <span class="tick-div">◆</span></div>
+    <div class="tick-item">Real-Time Optimization <span class="tick-div">◆</span></div>
+    <div class="tick-item">CRM Automation <span class="tick-div">◆</span></div>
+    <div class="tick-item">AI Analytics & Reports <span class="tick-div">◆</span></div>
+    <div class="tick-item">AI Ads Management <span class="tick-div">◆</span></div>
+    <div class="tick-item">Social Media Autopilot <span class="tick-div">◆</span></div>
+    <div class="tick-item">AI Lead Generation <span class="tick-div">◆</span></div>
+    <div class="tick-item">Email Marketing AI <span class="tick-div">◆</span></div>
+    <div class="tick-item">AI Content Creation <span class="tick-div">◆</span></div>
+    <div class="tick-item">Real-Time Optimization <span class="tick-div">◆</span></div>
+    <div class="tick-item">CRM Automation <span class="tick-div">◆</span></div>
+    <div class="tick-item">AI Analytics & Reports <span class="tick-div">◆</span></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div id="how">
+<div class="sec">
+  <div class="reveal">
+    <div class="eyebrow">How it works</div>
+    <h2 class="sec-title">From zero to fully automated<br/>in 48 hours</h2>
+    <p class="sec-sub">We build your complete AI marketing engine, connect it to your business, and let it run.</p>
+  </div>
+  <div class="how-grid reveal">
+    <div class="how-steps">
+      <div class="how-step active" onclick="setStep(this)"><div class="how-step-n">01</div><div><div class="how-step-t">Onboarding & Strategy Call</div><div class="how-step-d">30-minute call. We map your business, audience, and goals. The AIO Agent begins a deep analysis of your online presence.</div></div></div>
+      <div class="how-step" onclick="setStep(this)"><div class="how-step-n">02</div><div><div class="how-step-t">AI System Configuration</div><div class="how-step-d">We connect your ad accounts, CRM, website, and social. Your AI model is trained on your brand voice and ideal customer.</div></div></div>
+      <div class="how-step" onclick="setStep(this)"><div class="how-step-n">03</div><div><div class="how-step-t">Launch & Live Testing</div><div class="how-step-d">Campaigns go live. The AI tests dozens of creatives, audiences, and messages simultaneously — learning what converts.</div></div></div>
+      <div class="how-step" onclick="setStep(this)"><div class="how-step-n">04</div><div><div class="how-step-t">Autonomous Optimization</div><div class="how-step-d">The system runs itself — reallocating budget, publishing content, nurturing leads, and improving ROAS without human input.</div></div></div>
+      <div class="how-step" onclick="setStep(this)"><div class="how-step-n">05</div><div><div class="how-step-t">Your Dashboard, Always Live</div><div class="how-step-d">Log into your client portal anytime to see live data, AI actions, and reports — all in plain English.</div></div></div>
+    </div>
+    <div class="agent-box">
+      <div class="agent-hdr">
+        <div class="agent-av">A</div>
+        <div><div class="agent-nm">AIO Agent — Acme Plumbing</div><div class="agent-st">Running autonomously</div></div>
+      </div>
+      <div class="agent-body">
+        <div class="a-tasks">
+          <div class="a-task"><div class="a-ico done">✓</div><div class="a-txt"><strong>Brand voice training complete</strong>Analyzed 3 years of content. Model calibrated.</div></div>
+          <div class="a-task"><div class="a-ico done">✓</div><div class="a-txt"><strong>Ad accounts connected</strong>Google Ads + Meta Business Suite synced.</div></div>
+          <div class="a-task"><div class="a-ico done">✓</div><div class="a-txt"><strong>24 ad creatives generated</strong>8 Google + 16 Meta variants queued for testing.</div></div>
+          <div class="a-task curr"><div class="a-ico curr">→</div><div class="a-txt"><strong>Optimizing Ad Set #3</strong>Shifting $180/day from Set #1 — CPL $42 → $27.</div></div>
+          <div class="a-task"><div class="a-ico pend">○</div><div class="a-txt"><strong>Weekly social posts</strong>6 posts scheduled Mon–Sat across 3 platforms.</div></div>
+          <div class="a-task"><div class="a-ico pend">○</div><div class="a-txt"><strong>Monthly AI report</strong>Plain-English summary ready in 2 days.</div></div>
+        </div>
+      </div>
+      <div class="agent-prog">
+        <div class="prog-lbl"><span>Optimization cycle</span><span>68%</span></div>
+        <div class="prog-bar"><div class="prog-fill"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PIPELINE dark -->
+<div class="sec-dark">
+<div class="sec">
+  <div class="reveal">
+    <div class="eyebrow" style="color:var(--terra-light)"><span style="background:var(--terra-light);width:16px;height:2px;border-radius:1px;display:inline-block"></span>Automation pipeline</div>
+    <h2 class="sec-title" style="color:var(--cream)">Every touchpoint.<br/>Fully automated.</h2>
+  </div>
+  <div class="p-nodes reveal">
+    <div class="p-node"><div class="p-circle">🎯</div><div class="p-name">Target</div><div class="p-desc">AI audience<br/>mapping</div></div>
+    <div class="p-node"><div class="p-circle">✍️</div><div class="p-name">Create</div><div class="p-desc">AI-generated<br/>ads & content</div></div>
+    <div class="p-node"><div class="p-circle">🚀</div><div class="p-name">Launch</div><div class="p-desc">Multi-channel<br/>deployment</div></div>
+    <div class="p-node"><div class="p-circle">📊</div><div class="p-name">Analyze</div><div class="p-desc">Real-time<br/>performance</div></div>
+    <div class="p-node"><div class="p-circle">⚡</div><div class="p-name">Optimize</div><div class="p-desc">Auto budget<br/>reallocation</div></div>
+    <div class="p-node"><div class="p-circle">💰</div><div class="p-name">Convert</div><div class="p-desc">AI lead<br/>nurturing</div></div>
+    <div class="p-node"><div class="p-circle">🔄</div><div class="p-name">Scale</div><div class="p-desc">Self-improving<br/>over time</div></div>
+  </div>
+</div>
+</div>
+
+<!-- SERVICES -->
+<div id="services">
+<div class="sec">
+  <div class="reveal">
+    <div class="eyebrow">What we automate</div>
+    <h2 class="sec-title">Full-suite AIO services</h2>
+    <p class="sec-sub">Every service runs on AI — built, optimized, and scaled without a traditional marketing team.</p>
+  </div>
+  <div class="svcs-grid reveal">
+    <div class="svc-card"><div class="svc-ico">⚡</div><div class="svc-tag">AI-001</div><div class="svc-nm">AI Ads Management</div><div class="svc-desc">Google, Meta & TikTok ads fully managed by AI. Auto-bidding, creative testing, and budget optimization 24/7.</div><ul class="svc-list"><li>Google Search & Display</li><li>Meta & Instagram Ads</li><li>TikTok & YouTube</li><li>Dynamic retargeting</li><li>Auto A/B testing</li></ul></div>
+    <div class="svc-card"><div class="svc-ico">📱</div><div class="svc-tag">AI-002</div><div class="svc-nm">Social Media Autopilot</div><div class="svc-desc">AI writes, schedules, and publishes content across all channels — engagement-optimized and brand-consistent.</div><ul class="svc-list"><li>AI content calendar</li><li>Caption & hashtag gen</li><li>Auto-scheduling</li><li>Engagement monitoring</li><li>Trend-based posts</li></ul></div>
+    <div class="svc-card"><div class="svc-ico">✉️</div><div class="svc-tag">AI-003</div><div class="svc-nm">AI Email Marketing</div><div class="svc-desc">Automated sequences that nurture leads and close deals — written and sent entirely by AI.</div><ul class="svc-list"><li>AI-written sequences</li><li>Behavioral triggers</li><li>Smart segmentation</li><li>Send-time optimization</li><li>CRM integration</li></ul></div>
+    <div class="svc-card"><div class="svc-ico">🎯</div><div class="svc-tag">AI-004</div><div class="svc-nm">AI Lead Generation</div><div class="svc-desc">AI-driven funnels that identify, attract, and qualify leads automatically — delivered hot into your CRM.</div><ul class="svc-list"><li>AI-built landing pages</li><li>Lead scoring AI</li><li>Cold outreach automation</li><li>Chatbot lead capture</li><li>CRM auto-sync</li></ul></div>
+    <div class="svc-card"><div class="svc-ico">✍️</div><div class="svc-tag">AI-005</div><div class="svc-nm">AI Content Creation</div><div class="svc-desc">Blogs, ad copy, and video scripts produced at scale by AI trained on your brand voice.</div><ul class="svc-list"><li>Blog & article writing</li><li>Ad copywriting AI</li><li>Video script gen</li><li>Brand voice training</li><li>SEO-optimized output</li></ul></div>
+    <div class="svc-card"><div class="svc-ico">📊</div><div class="svc-tag">AI-006</div><div class="svc-nm">AI Analytics & Reports</div><div class="svc-desc">Real-time dashboards and monthly AI reports translating complex data into clear revenue insights.</div><ul class="svc-list"><li>Unified live dashboard</li><li>AI insight summaries</li><li>ROI attribution</li><li>Competitor tracking</li><li>Monthly AI reports</li></ul></div>
+  </div>
+</div>
+</div>
+
+<!-- RESULTS -->
+<div class="sec-bg">
+<div class="sec">
+  <div class="reveal"><div class="eyebrow">By the numbers</div><h2 class="sec-title">Results our clients actually see</h2></div>
+  <div class="res-grid reveal">
+    <div class="res-card"><div class="res-num">3.8x</div><div class="res-lbl">Average ROAS</div><div class="res-desc">Across all paid ad accounts in first 90 days</div></div>
+    <div class="res-card"><div class="res-num">68%</div><div class="res-lbl">Lower CPL</div><div class="res-desc">Cost-per-lead vs traditional agency</div></div>
+    <div class="res-card"><div class="res-num">4.2x</div><div class="res-lbl">More Content</div><div class="res-desc">Volume produced vs in-house teams</div></div>
+    <div class="res-card"><div class="res-num">91%</div><div class="res-lbl">Client Retention</div><div class="res-desc">12-month retention across all tiers</div></div>
+  </div>
+</div>
+</div>
+
+<!-- INDUSTRIES -->
+<div class="ind-wrap">
+  <div class="ind-inner">
+    <div class="ind-lbl">Industries we serve across the United States</div>
+    <div class="ind-pills">
+      <div class="ind-pill">Real Estate</div><div class="ind-pill">Med Spas & Aesthetics</div><div class="ind-pill">Dental & Healthcare</div><div class="ind-pill">Home Services (HVAC, Plumbing)</div><div class="ind-pill">E-Commerce</div><div class="ind-pill">SaaS & Tech</div><div class="ind-pill">Law Firms</div><div class="ind-pill">Fitness & Wellness</div><div class="ind-pill">Restaurants & F&B</div><div class="ind-pill">Auto Dealerships</div><div class="ind-pill">Financial Services</div><div class="ind-pill">Education & Coaching</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT PORTAL -->
+<div id="portal">
+<div class="sec">
+  <div class="reveal">
+    <div class="eyebrow">Client portal</div>
+    <h2 class="sec-title">Your command center,<br/>always live</h2>
+    <p class="sec-sub">Every client gets a private dashboard showing real-time performance, AI actions, and growth reports.</p>
+  </div>
+  <div class="portal-grid reveal">
+    <div class="portal-feats">
+      <div class="portal-feat"><div class="portal-feat-ico">📊</div><div><div class="portal-feat-ttl">Live Performance Dashboard</div><div class="portal-feat-desc">See every metric — leads, ROAS, CPL — updating in real time. No waiting for monthly reports.</div></div></div>
+      <div class="portal-feat"><div class="portal-feat-ico">🤖</div><div><div class="portal-feat-ttl">AIO Agent Activity Feed</div><div class="portal-feat-desc">Watch exactly what your AI is doing — budget shifts, content published, leads captured.</div></div></div>
+      <div class="portal-feat"><div class="portal-feat-ico">📈</div><div><div class="portal-feat-ttl">AI Monthly Reports</div><div class="portal-feat-desc">Plain-English summaries of what worked, what the AI learned, and what it plans next month.</div></div></div>
+      <div class="portal-feat"><div class="portal-feat-ico">💬</div><div><div class="portal-feat-ttl">Direct Strategy Support</div><div class="portal-feat-desc">Message your team from the portal. Average response under 2 hours on US business days.</div></div></div>
+      <button class="btn-p" style="margin-top:8px;align-self:flex-start" onclick="openModal('login')">Access Your Portal →</button>
+    </div>
+    <div class="portal-mockup">
+      <div class="portal-tb">
+        <span class="portal-tb-logo">Its<em>AIO</em></span>
+        <div class="portal-tb-nav"><span class="act">Dashboard</span><span>Campaigns</span><span>Reports</span><span>Support</span></div>
+        <div class="portal-tb-user">MR</div>
+      </div>
+      <div class="portal-body">
+        <div class="pw"><div class="pw-lbl">Leads this month</div><div class="pw-big">247</div><div class="pw-chg">↑ +38% vs last month</div><div class="pw-mini-chart"><div class="pw-bar" style="height:40%"></div><div class="pw-bar" style="height:55%"></div><div class="pw-bar" style="height:48%"></div><div class="pw-bar" style="height:70%"></div><div class="pw-bar" style="height:62%"></div><div class="pw-bar" style="height:82%"></div><div class="pw-bar hi" style="height:100%"></div></div></div>
+        <div class="pw"><div class="pw-lbl">Ad ROAS</div><div class="pw-big">4.2x</div><div class="pw-chg">↑ +0.8x improvement</div><div class="pw-mini-chart"><div class="pw-bar" style="height:50%"></div><div class="pw-bar" style="height:62%"></div><div class="pw-bar" style="height:55%"></div><div class="pw-bar" style="height:75%"></div><div class="pw-bar" style="height:68%"></div><div class="pw-bar" style="height:86%"></div><div class="pw-bar hi" style="height:96%"></div></div></div>
+        <div class="pw pw-full"><div class="pw-lbl">AIO Agent activity — last 24h</div><div class="pw-activity"><div class="pw-act-item"><div class="pw-dot" style="background:var(--sage)"></div>Budget reallocated — Google Ad Set #3 now +$180/day</div><div class="pw-act-item"><div class="pw-dot" style="background:var(--terra)"></div>3 new posts published to Instagram & Facebook</div><div class="pw-act-item"><div class="pw-dot" style="background:var(--terra)"></div>Email sequence triggered — 14 new leads entered nurture</div><div class="pw-act-item"><div class="pw-dot" style="background:var(--sage)"></div>Blog post published — "5 Plumbing Tips for Winter"</div><div class="pw-act-item"><div class="pw-dot" style="background:var(--text3)"></div>Monthly report generating — ready in 2 days</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing" class="sec-bg">
+<div class="sec">
+  <div class="reveal" style="text-align:center"><div class="eyebrow" style="justify-content:center">Pricing</div><h2 class="sec-title">Simple. Transparent.<br/>No surprises.</h2><p class="sec-sub" style="margin:0 auto;text-align:center">All plans include setup, onboarding & AI system build. Cancel anytime.</p></div>
+  <div class="price-grid reveal">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-num"><sup>$</sup>997</div>
+      <div class="price-mo">per month · billed monthly</div>
+      <div class="price-div"></div>
+      <div class="price-desc">For small businesses ready to automate and generate consistent leads.</div>
+      <ul class="price-feats"><li><span class="ck">✓</span>AI Ads (1 platform)</li><li><span class="ck">✓</span>Social Autopilot (3×/wk)</li><li><span class="ck">✓</span>Email sequences (up to 5)</li><li><span class="ck">✓</span>Monthly AI report</li><li><span class="ck">✓</span>Client portal access</li><li><span class="xx">✗</span>Lead gen funnel</li><li><span class="xx">✗</span>AI content at scale</li></ul>
+      <a href="#" class="btn-price" onclick="openModal('register')">Get Started</a>
+    </div>
+    <div class="price-card feat">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-tier">Growth</div>
+      <div class="price-num"><sup>$</sup>1,997</div>
+      <div class="price-mo">per month · billed monthly</div>
+      <div class="price-div"></div>
+      <div class="price-desc">The full AI marketing engine for businesses serious about scaling revenue.</div>
+      <ul class="price-feats"><li><span class="ck">✓</span>AI Ads (Google + Meta + TikTok)</li><li><span class="ck">✓</span>Social Autopilot (daily)</li><li><span class="ck">✓</span>Unlimited email sequences</li><li><span class="ck">✓</span>AI lead gen funnel</li><li><span class="ck">✓</span>AI content (8 pieces/mo)</li><li><span class="ck">✓</span>Real-time portal + reports</li><li><span class="ck">✓</span>Bi-weekly strategy calls</li></ul>
+      <a href="#" class="btn-price-feat" onclick="openModal('register')">Start Free Trial</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Enterprise</div>
+      <div class="price-num"><sup>$</sup>3,997</div>
+      <div class="price-mo">per month · billed monthly</div>
+      <div class="price-div"></div>
+      <div class="price-desc">For multi-location businesses, franchises, and high-growth brands.</div>
+      <ul class="price-feats"><li><span class="ck">✓</span>Everything in Growth</li><li><span class="ck">✓</span>Multi-location support</li><li><span class="ck">✓</span>Unlimited AI content</li><li><span class="ck">✓</span>Custom AI model training</li><li><span class="ck">✓</span>Competitor intelligence AI</li><li><span class="ck">✓</span>Dedicated AI strategist</li><li><span class="ck">✓</span>White-glove onboarding</li></ul>
+      <a href="#" class="btn-price" onclick="openModal('register')">Contact Sales</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="sec">
+  <div class="reveal"><div class="eyebrow">Client results</div><h2 class="sec-title">What US businesses are saying</h2></div>
+  <div class="testi-grid reveal">
+    <div class="testi"><div class="testi-stars">★★★★★</div><div class="testi-q">ItsAIO replaced our $8k/month agency. We went from 12 leads a month to 67 — all on autopilot. I don't touch marketing anymore.</div><div class="testi-auth"><div class="testi-av">MR</div><div><div class="testi-nm">Mike Robertson</div><div class="testi-role">Owner — Robertson HVAC, Texas</div></div></div></div>
+    <div class="testi"><div class="testi-stars">★★★★★</div><div class="testi-q">The AI runs our Google Ads better than any human I've hired. ROAS went from 1.9x to 4.7x in 60 days. This is the future.</div><div class="testi-auth"><div class="testi-av">JL</div><div><div class="testi-nm">Jessica Liu</div><div class="testi-role">Founder — Radiance Med Spa, CA</div></div></div></div>
+    <div class="testi"><div class="testi-stars">★★★★★</div><div class="testi-q">90 days in, we booked $240k in new business. The system never sleeps and never misses. Best investment we've ever made.</div><div class="testi-auth"><div class="testi-av">DK</div><div><div class="testi-nm">David Kim</div><div class="testi-role">CEO — Apex Real Estate Group, FL</div></div></div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-wrap">
+  <h2>Ready to put your marketing<br/>on <em>full autopilot?</em></h2>
+  <p>Join 200+ US businesses already running on ItsAIO. Setup in 48 hours. Results from day one.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-cta-wh" onclick="openModal('register')">Start Free Trial →</a>
+    <a href="#" class="btn-cta-ol" onclick="openModal('login')">Client Portal Login</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div>
+        <a class="ft-logo" href="#">Its<em>AIO</em></a>
+        <div class="ft-desc">AI-powered marketing automation for ambitious US businesses. Built to scale. Designed to dominate.</div>
+        <div class="ft-contact">itsaio.com &nbsp;·&nbsp; hello@itsaio.com</div>
+      </div>
+      <div class="ft-col"><div class="ft-col-ttl">Services</div><a href="#">AI Ads Management</a><a href="#">Social Autopilot</a><a href="#">AI Email Marketing</a><a href="#">Lead Generation</a><a href="#">AI Content</a></div>
+      <div class="ft-col"><div class="ft-col-ttl">Company</div><a href="#">About ItsAIO</a><a href="#">Case Studies</a><a href="#">Pricing</a><a href="#">Blog</a><a href="#" onclick="openModal('login')">Client Portal</a></div>
+      <div class="ft-col"><div class="ft-col-ttl">Legal</div><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a><a href="#">Refund Policy</a></div>
+    </div>
+    <div class="ft-bottom">
+      <div class="ft-copy">© 2025 ItsAIO.com — All rights reserved</div>
+      <div class="ft-social"><a href="#">LinkedIn</a><a href="#">Twitter / X</a><a href="#">Instagram</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Modal
+function openModal(tab){
+  document.getElementById('loginModal').classList.add('open');
+  if(tab) switchTab(tab);
+}
+function closeModal(){document.getElementById('loginModal').classList.remove('open')}
+document.getElementById('loginModal').addEventListener('click',function(e){if(e.target===this)closeModal()})
+function switchTab(t){
+  document.getElementById('tab-login').classList.toggle('active',t==='login');
+  document.getElementById('tab-reg').classList.toggle('active',t==='register');
+  document.getElementById('login-form').style.display=t==='login'?'block':'none';
+  document.getElementById('reg-form').style.display=t==='register'?'block':'none';
+}
+
+// Toast
+function showToast(title,sub){
+  var t=document.getElementById('toast');
+  document.getElementById('toast-title').textContent=title;
+  document.getElementById('toast-sub').textContent=sub||'';
+  t.style.display='flex';
+  setTimeout(function(){t.style.display='none'},3800);
+}
+setTimeout(function(){showToast('New lead captured','Mike T. from Dallas — Google Ads funnel')},3500);
+setTimeout(function(){showToast('Budget optimized','Ad Set #2 ROAS improved to 4.8x')},11000);
+setTimeout(function(){showToast('3 posts published','Instagram + Facebook + LinkedIn')},19000);
+
+// Scroll reveal
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// How step
+function setStep(el){
+  document.querySelectorAll('.how-step').forEach(function(s){s.classList.remove('active')});
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
